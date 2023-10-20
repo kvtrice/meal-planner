@@ -27,47 +27,47 @@ class Day():
             # For 1400 - 1700 Cals ->
             case 1:
                 self.meal_calories = {
-                    "M1": 250,
-                    "M2": 250,
-                    "M3": 250,
+                    "M1": 400,
+                    "M2": 400,
+                    "M3": 500,
                     "M4": 250,
-                    "M5": 250,
+                    "M5": 200,
                 }
             # For 1701 - 2000 Cals ->
             case 2:
                 self.meal_calories = {
-                    "M1": 250,
-                    "M2": 250,
-                    "M3": 250,
-                    "M4": 250,
-                    "M5": 250,
+                    "M1": 400,
+                    "M2": 400,
+                    "M3": 600,
+                    "M4": 300,
+                    "M5": 200,
                 }
             # For 2001 - 2300 Cals ->
             case 3:
                 self.meal_calories = {
-                    "M1": 250,
-                    "M2": 250,
-                    "M3": 250,
-                    "M4": 250,
-                    "M5": 250,
+                    "M1": 500,
+                    "M2": 500,
+                    "M3": 600,
+                    "M4": 400,
+                    "M5": 300,
                 }
             # For 2301 - 2600 Cals ->
             case 4:
                 self.meal_calories = {
-                    "M1": 250,
-                    "M2": 250,
-                    "M3": 250,
-                    "M4": 250,
-                    "M5": 250,
+                    "M1": 500,
+                    "M2": 600,
+                    "M3": 700,
+                    "M4": 400,
+                    "M5": 400,
                 }
             # For 2601 - 3000 Cals ->
             case 5:
                 self.meal_calories = {
-                    "M1": 250,
-                    "M2": 250,
-                    "M3": 250,
-                    "M4": 250,
-                    "M5": 250,
+                    "M1": 600,
+                    "M2": 650,
+                    "M3": 800,
+                    "M4": 500,
+                    "M5": 400,
                 }
 
     # Function to find and select meals for the specified calorie_ranges

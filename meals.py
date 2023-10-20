@@ -23,7 +23,7 @@ class Day():
         self.todays_meals = []
 
     def __repr__(self):
-        return f"Daily Calorie Target is: {self.daily_calories}\nCalorie Range is: {self.calorie_range}\nMeal Calories are: {self.meal_calories}\n Today's Meals are: {self.todays_meals}"
+        return f"Daily Calorie Target is: {self.daily_calories}\nCalorie Range is: {self.calorie_range}\nMeal Calories are: {self.meal_calories}"
 
     # Function to set the calories required for each meal in order for the user to get meals that match their specific calorie range for the day
     def set_meal_calories(self, calorie_range):
@@ -79,8 +79,9 @@ class Day():
     # Function to find and select meals for the specified calorie_ranges
     def set_meals(self):
         # Get all recipes (as a dictionary)
-        get_recipes()
-
+        recipes = get_recipes()
+        # Shuffle recipes so it's a random one being returned
+        random.shuffle(recipes)
         # While todays meals is incomplete
         while True:
         # For each of the meals (meal1, meal2 etc.)
@@ -90,19 +91,18 @@ class Day():
                 max_cal = calories + 75
                 meal_found = False
 
-                print(f"Calorie Range Min: {min_cal} cals, Max is {max_cal} cals")
-
                 # Iterate over the recipes to find a meal, and check it's in the calorie range. While it's not, keep searching, if it is, add it to today's meals and set meal_found to True
                 while meal_found == False:
-                    pass
-
-        # WHILE (complete == false):
-        #   Loop (run 5 times):
-        #       For each Meal calorie mid-point, set the range to be +- 100   (based on the value of that key)
-        #       Search the recipe dictionary for a meal that matches the range we gave
-        #       Find all recipes that match the range - add to a new dictionary
-        #       randomChoice function from Random on that dictionary
-        #       Add that random choice (dictionary) to self.todays_meals (list)
+                    # Iterate through the recipes dictionary
+                    for recipe in recipes:
+                        value = int(recipe.get('calories'))
+                        if min_cal < value < max_cal:
+                            self.todays_meals.append(recipe)
+                            recipes.remove(recipe)
+                            meal_found = True
+                            break
+    
+            
         #   Loop:
         #       Sum the values of each dictionary in the list
         #   If within +/- 50 of initial daily calorie intake goal

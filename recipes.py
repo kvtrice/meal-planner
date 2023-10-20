@@ -45,11 +45,11 @@ def display_all_recipes():
                                      }. Calories: {row['calories']}\n")
 
 
-# Function to open and read the CSV, get all recipes and store in a dictionary -->
+# Function to open and read the CSV, get all recipes and store in a list -->
 
 # This is used when choosing recipes for a user - we will get the recipes once at the beginning of the process rather than opening and closing the CSV to check for items each time that process runs
 
 def get_recipes():
     with open('recipes.csv', 'r') as f:
-        recipe_list = list(csv.DictReader(f))
-        return recipe_list
+        recipes_list = list(csv.DictReader(f))
+        return recipes_list

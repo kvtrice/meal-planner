@@ -1,23 +1,29 @@
 import random
 from user_plan import User
+from recipes import get_recipes
 
 # Define day Class --> Will ecentually have multiple day objects creating a full weeks worth of meals
 
 
 class Day():
-    def __init__(self, daily_calories, calorie_range):
+    def __init__(self, calorie_range, daily_calories):
         # Empty dictionary to store the calorie target for each meal (based on the calorie range we determined from the users total daily calories)
         # This will be 5 objects with a calorie range that will be iterated over
+        self.calorie_range = calorie_range
+        self.daily_calories = daily_calories
         self.meal_calories = {}
 
         # Set the meal calories (based on the calorie range) each time a day is initialized
-        self.set_meal_calories(calorie_range)
+        self.set_meal_calories(self.calorie_range)
 
         # Empty list to store all the meals for the day
         # Will iterate over the meal_calories dictionary and for each meal find a meal from the recipes list that is within that range
         # Each of those meals will be added into this list
         # This list will eventually contain 5 meals for the day
         self.todays_meals = []
+
+    def __repr__(self):
+        return f"Daily Calorie Target is: {self.daily_calories}\nCalorie Range is: {self.calorie_range}\nMeal Calories are: {self.meal_calories}\n Today's Meals are: {self.todays_meals}"
 
     # Function to set the calories required for each meal in order for the user to get meals that match their specific calorie range for the day
     def set_meal_calories(self, calorie_range):
@@ -72,8 +78,24 @@ class Day():
 
     # Function to find and select meals for the specified calorie_ranges
     def set_meals(self):
-        pass
-        # Load the latest recipes into a dictionary
+        # Get all recipes (as a dictionary)
+        get_recipes()
+
+        # While todays meals is incomplete
+        while True:
+        # For each of the meals (meal1, meal2 etc.)
+            for calories in self.meal_calories.values():
+                # For the value in that dict (cals), +- 75 either side
+                min_cal = calories - 75
+                max_cal = calories + 75
+                meal_found = False
+
+                print(f"Calorie Range Min: {min_cal} cals, Max is {max_cal} cals")
+
+                # Iterate over the recipes to find a meal, and check it's in the calorie range. While it's not, keep searching, if it is, add it to today's meals and set meal_found to True
+                while meal_found == False:
+                    pass
+
         # WHILE (complete == false):
         #   Loop (run 5 times):
         #       For each Meal calorie mid-point, set the range to be +- 100   (based on the value of that key)

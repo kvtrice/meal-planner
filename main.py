@@ -21,17 +21,18 @@ import meals
 # Ask user for calories
 # User enters cals
 # Determine what range that calorie goal is in
-user1 = user_plan.User()
-print(user1)
+user = user_plan.User()
 
 # Based on the calorie goal, determine what calories can be in each type of meal
-
 # create a day object, pass it the calorie goal + range from the User
+day = meals.Day(user.calorie_range, user.daily_calories)
+print(day)
 
-
-
+meals.Day.set_meals(day)
 
 # Once we have a calorie range for each meal type, we need to find a random meal for each
+
+
 
 # Breakfast = 1 meal
 # Lunch = 1 meal

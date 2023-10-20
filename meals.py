@@ -78,12 +78,16 @@ class Day():
 
     # Function to find and select meals for the specified calorie_ranges
     def set_meals(self):
+        
+        attempts = 0
         # Get all recipes (as a dictionary)
         recipes = get_recipes()
         # Shuffle recipes so it's a random one being returned
         random.shuffle(recipes)
+
+        meal_completed = False
         # While todays meals is incomplete
-        while True:
+        while meal_completed == False and attempts < 100:
         # For each of the meals (meal1, meal2 etc.)
             for calories in self.meal_calories.values():
                 # For the value in that dict (cals), +- 75 either side
@@ -93,17 +97,45 @@ class Day():
 
                 # Iterate over the recipes to find a meal, and check it's in the calorie range. While it's not, keep searching, if it is, add it to today's meals and set meal_found to True
                 while meal_found == False:
-                    # Iterate through the recipes dictionary
+                    # Iterate through the recipes list of dictionaries
                     for recipe in recipes:
+                        # Find the 'calories' value
                         value = int(recipe.get('calories'))
+                        # Check if that value is within the meals acceptable range
                         if min_cal < value < max_cal:
+                            # If it is, append it to todays meals
                             self.todays_meals.append(recipe)
+                            # Remove from the recipe list (so as to not duplicate on the same day)
                             recipes.remove(recipe)
                             meal_found = True
+                            # Exit the loop
                             break
-    
+
+                    if meal_found == False:
+                        print("Sorry, we couldn't find a recipe for this meal.")
+                        meal_found = True
             
-        #   Loop:
-        #       Sum the values of each dictionary in the list
-        #   If within +/- 50 of initial daily calorie intake goal
-        # Set complete to TRUE
+            # Check that meal total is acceptable close to the users target calories
+            total_calories = 0
+            # Sum each meals calories together to find the total
+            for meal in self.todays_meals:
+                total_calories += int(meal['calories'])
+            
+            # Set the range to be acceptable based on the daily calories goal
+            daily_min_cal = self.daily_calories - 75
+            daily_max_cal = self.daily_calories + 75
+
+            # If within target, mark meal as completed
+            if daily_min_cal < total_calories < daily_max_cal:
+                meal_completed = True
+                print(total_calories)
+            # Otherwise, start again
+            else:
+                self.todays_meals = []
+                recipes = get_recipes()
+                random.shuffle(recipes)
+                attempts += 1
+                print("Oops! Recalculating...")
+
+        if attempts >= 100:
+            print("Sorry, we were unable to find a suitable meal plan for you at this time. Please try again with a different calorie target or add some more recipes.")

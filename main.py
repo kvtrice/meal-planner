@@ -28,26 +28,14 @@ user = user_plan.User()
 # create a day object, pass it the calorie goal + range from the User
 day = Day(user.calorie_range, user.daily_calories)
 day.set_meals()
-print(day)
-pprint.pprint(day.todays_meals)
-
-# Once we have a calorie range for each meal type, we need to find a random meal for each
+day.print_daily_meal()
+# pprint.pprint(day.todays_meals)
 
 
-# Breakfast = 1 meal
-# Lunch = 1 meal
-# Dinner = 1 meal
-# Snacks = 2 
 
-# Once each meal is grabbed, append it to a list on the Day Class - this is their daily meal plan
-# Add that day to a list on the User - this will become their weekly meal plan
+        # for row in reader:
+        #     print(f"{row['title']}: {row['ingredients']}. Calories: {row['calories']}\n")
 
-# Once all meals are grabbed, sum the total calories for the day, based on the meals in the list
-# Check that sum against what the user entered as their target.
-# Is the sum within 100 cals either side? If yes - print
-# If not, try again
-
-# Once successful meal plan is arrived it, print it to the user
 
 # Check with the usre if they're happy with it
 # If no, they can re-roll it

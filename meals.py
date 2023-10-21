@@ -22,8 +22,10 @@ class Day():
         # This list will eventually contain 5 meals for the day
         self.todays_meals = []
 
-    def __repr__(self):
-        return f"Daily Calorie Target is: {self.daily_calories}\nCalorie Range is: {self.calorie_range}\nMeal Calories are: {self.meal_calories}"
+    # def __repr__(self):
+
+    #     for item in self.todays_meals:
+    #         return f"Daily Calorie Target is: {self.daily_calories}\nCalorie Range is: {self.calorie_range}\nMeal Calories are: {self.meal_calories}"
 
     # Function to set the calories required for each meal in order for the user to get meals that match their specific calorie range for the day
     def set_meal_calories(self, calorie_range):
@@ -112,8 +114,8 @@ class Day():
                             break
 
                     if meal_found == False:
-                        print("Sorry, we couldn't find a recipe for this meal.")
                         meal_found = True
+                        raise Exception("Sorry, we couldn't find a recipe for this meal.")
             
             # Check that meal total is acceptable close to the users target calories
             total_calories = 0
@@ -128,14 +130,27 @@ class Day():
             # If within target, mark meal as completed
             if daily_min_cal < total_calories < daily_max_cal:
                 meal_completed = True
-                print(total_calories)
             # Otherwise, start again
             else:
                 self.todays_meals = []
                 recipes = get_recipes()
                 random.shuffle(recipes)
                 attempts += 1
-                print("Oops! Recalculating...")
 
         if attempts >= 100:
-            print("Sorry, we were unable to find a suitable meal plan for you at this time. Please try again with a different calorie target or add some more recipes.")
+            raise Exception("Sorry, we were unable to find a suitable meal plan for you at this time. Please try again with a different calorie target or add some more recipes.")
+
+    # Function to print the days meal plan once it's been set
+    def print_daily_meal(self):
+        total_calories = 0
+        print(f"\nBased on your daily calorie goal, here is today's meals:\n")
+
+        semantic_meal_names = ["Breakfast", "Lunch", "Dinner", "Snack 1", "Snack 2"]
+
+        for meal_name, semantic_name in zip(self.todays_meals, semantic_meal_names):
+            total_calories += int(meal_name['calories'])
+            print(f"{semantic_name}: {meal_name['title']} ({meal_name['calories']} calories) ")
+            print(f"Ingredients: {meal_name['ingredients']}\n ")
+        
+        print(f"\nThe total calories for the day is: {total_calories}\n")
+

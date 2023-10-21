@@ -41,8 +41,7 @@ def display_all_recipes():
     with open('recipes.csv') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            print(f"{row['title']}: {row['ingredients']
-                                     }. Calories: {row['calories']}\n")
+            print(f"{row['title']}: {row['ingredients']}. Calories: {row['calories']}\n")
 
 
 # Function to open and read the CSV, get all recipes and store in a list -->

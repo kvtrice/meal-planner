@@ -4,37 +4,23 @@ from recipes import get_recipes
 # ----------------------------------------------------------------
 
 class Day():
-    def __init__(self):
-        self.calorie_target = 0
-        self.get_calorie_target() # Get calorie target upon initialisation
+    def __init__(self, calorie_target):
+        self.calorie_target = calorie_target
         self.meal_calories = {}  # Store meal calories based on the users calorie target
         # Set the meal calories (based on the calorie range) each time a day is initialized
-        self.set_meal_calories(self.calorie_target)
+        self.set_meal_calories()
         self.todays_meals = []  # Empty list for todays meals
         self.day_result = None
 
-    def get_calorie_target(self):
-        try:
-            self.calorie_target = int(input("What is your daily calorie target? Please enter a target between 1400 - 3000 Calories: ")) # Prompt for user input
-
-            # If not in one of these ranges then raise an exception
-            if self.calorie_target < 1400 or self.calorie_target > 3000:
-                raise UnboundLocalError(
-                    "Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
-
-        # Raise exception if a string is entered rather than a number
-        except ValueError:
-            print(("Calorie target cannot be a string! Please enter a valid calorie target between 1400 and 3000."))
-
     # Set the calories required for each meal based on user calorie target
-    def set_meal_calories(self, calorie_target):
+    def set_meal_calories(self):
         # Based on each calorie_range, set the dictionary to equal the below specified calories
         if 1400 <= self.calorie_target <= 1700:
             self.meal_calories = {
-                "M1": 400,
-                "M2": 400,
+                "M1": 350,
+                "M2": 350,
                 "M3": 500,
-                "M4": 250,
+                "M4": 150,
                 "M5": 200,
             }
         elif 1701 <= self.calorie_target <= 2000:
@@ -85,7 +71,7 @@ class Day():
         recipes = self.shuffle_recipes()
 
         # While todays meals is incomplete
-        while meal_completed == False and attempts < 100:
+        while meal_completed == False and attempts < 1000:
             for calories in self.meal_calories.values():
                 # For the value in that dict (cals), +- 75 either side
                 min_cal = calories - 75
@@ -152,7 +138,9 @@ class Day():
 
         print(f"\nThe total calories for the day is: {total_calories}\n")
 
+
     # Check with user if they're happy with the meals for the day
     def day_check(self):
         self.day_result = input(
             "What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
+    

@@ -2,8 +2,7 @@ import random
 from user_plan import User
 from recipes import get_recipes
 
-# Define day Class --> Will ecentually have multiple day objects creating a full weeks worth of meals
-
+#----------------------------------------------------------------
 
 class Day():
     def __init__(self, calorie_range, daily_calories):

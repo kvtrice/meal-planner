@@ -4,8 +4,7 @@ class User():
     def __init__(self):
         self.calorie_target = 0
         self.calorie_range = 0
-        # Call get_daily_calories function when initializing a new user
-        self.set_calorie_target()
+        self.set_calorie_target() # Call get_daily_calories function when initializing a new user
 
     def __repr__(self):
         return (f"Calorie Target: {self.calorie_target}. Calorie Range: {self.calorie_range}")
@@ -13,12 +12,10 @@ class User():
     # Function to get a users daily calorie goal / target
     def set_calorie_target(self):
         try:
-            # Prompt for user input
             self.calorie_target = int(input(
-                "What is your daily calorie target? Please enter a target between 1400 - 3000 Calories: "))
+                "What is your daily calorie target? Please enter a target between 1400 - 3000 Calories: ")) # Prompt for user input
 
             # Check to match the entered calorie target against the 5 specified ranges
-            # Ranges are used later to determine how many calories should be in each specific meal
             if 1400 <= self.calorie_target <= 1700:
                 self.calorie_range = 1
             elif 1701 <= self.calorie_target <= 2000:

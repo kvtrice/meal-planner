@@ -13,12 +13,10 @@ def generate_new_meal_plan(day):
 
 def main():
 
-    # Welcome
-    print(f"Welcome to Meal Planner!\n")
+    print(f"Welcome to Meal Planner!\n") # Welcome
 
     while True:
-        # Entry point
-        user_action = input("What would you like to do?\nEnter 'n' to start a new meal plan\nEnter 'a' to add a new recipe\nEnter 'v' to view all recipes\nOr enter 'q' to quit:\n").lower()
+        user_action = input("What would you like to do?\nEnter 'n' to start a new meal plan\nEnter 'a' to add a new recipe\nEnter 'v' to view all recipes\nOr enter 'q' to quit:\n").lower() # Entry point
 
         if user_action == 'a':
             recipes.add_recipe()
@@ -28,8 +26,7 @@ def main():
 
         elif user_action == 'n':
 
-            # Generate a User object
-            user = user_plan.User()
+            user = user_plan.User() # Generate a User object
 
             # Continuously loop until the user is happy with their meal plan
             while True:

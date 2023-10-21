@@ -8,20 +8,16 @@ class Day():
     def __init__(self, calorie_range, daily_calories):
         self.calorie_range = calorie_range
         self.daily_calories = daily_calories
-        # Store meal calories based on the users calorie target
-        self.meal_calories = {}
-        # Set the meal calories (based on the calorie range) each time a day is initialized
-        self.set_meal_calories(self.calorie_range)
-        # Empty list for todays meals
-        self.todays_meals = []
+        self.meal_calories = {} # Store meal calories based on the users calorie target
+        self.set_meal_calories(self.calorie_range) # Set the meal calories (based on the calorie range) each time a day is initialized
+        self.todays_meals = [] # Empty list for todays meals
         self.day_result = None
 
     # Set the calories required for each meal based on user calorie target
     def set_meal_calories(self, calorie_range):
         # Based on each calorie_range, set the dictionary to equal the below specified calories
         match calorie_range:
-            # For 1400 - 1700 Cals ->
-            case 1:
+            case 1: # For 1400 - 1700 Cals ->
                 self.meal_calories = {
                     "M1": 400,
                     "M2": 400,
@@ -29,8 +25,7 @@ class Day():
                     "M4": 250,
                     "M5": 200,
                 }
-            # For 1701 - 2000 Cals ->
-            case 2:
+            case 2: # For 1701 - 2000 Cals ->
                 self.meal_calories = {
                     "M1": 400,
                     "M2": 400,
@@ -38,8 +33,7 @@ class Day():
                     "M4": 300,
                     "M5": 200,
                 }
-            # For 2001 - 2300 Cals ->
-            case 3:
+            case 3: # For 2001 - 2300 Cals ->
                 self.meal_calories = {
                     "M1": 500,
                     "M2": 500,
@@ -47,8 +41,7 @@ class Day():
                     "M4": 400,
                     "M5": 300,
                 }
-            # For 2301 - 2600 Cals ->
-            case 4:
+            case 4: # For 2301 - 2600 Cals ->
                 self.meal_calories = {
                     "M1": 500,
                     "M2": 600,
@@ -56,8 +49,7 @@ class Day():
                     "M4": 400,
                     "M5": 400,
                 }
-            # For 2601 - 3000 Cals ->
-            case 5:
+            case 5: # For 2601 - 3000 Cals ->
                 self.meal_calories = {
                     "M1": 600,
                     "M2": 650,
@@ -66,45 +58,39 @@ class Day():
                     "M5": 400,
                 }
 
+    def shuffle_recipes(self):
+        recipe_list = get_recipes() # Get all recipes (as a dictionary)
+        random.shuffle(recipe_list) # Shuffle recipes so it's a random one being returned
+        return recipe_list
+    
     # Function to find and select meals for the specified calorie_ranges
     def set_meals(self):
-        # Num of attempts to set a valid meal plan
-        attempts = 0
-        # Get all recipes (as a dictionary)
-        recipes = get_recipes()
-        # Shuffle recipes so it's a random one being returned
-        random.shuffle(recipes)
-
+        attempts = 0 # Num of attempts to set a valid meal plan
         meal_completed = False
+        recipes = self.shuffle_recipes()
+
         # While todays meals is incomplete
         while meal_completed == False and attempts < 100:
-            # For each of the meals (meal1, meal2 etc.)
             for calories in self.meal_calories.values():
                 # For the value in that dict (cals), +- 75 either side
                 min_cal = calories - 75
                 max_cal = calories + 75
                 meal_found = False
 
-                # Iterate over the recipes to find a meal, and check it's in the calorie range. While it's not, keep searching, if it is, add it to today's meals and set meal_found to True
+                # Iterate over the recipes to find a meal, and check it's in the calorie range. 
+                # While it's not, keep searching, if it is, add it to today's meals and set meal_found to True
                 while meal_found == False:
-                    # Iterate through the recipes list of dictionaries
                     for recipe in recipes:
-                        # Find the 'calories' value
-                        value = int(recipe.get('calories'))
-                        # Check if that value is within the meals acceptable range
-                        if min_cal < value < max_cal:
-                            # If it is, append it to todays meals
-                            self.todays_meals.append(recipe)
-                            # Remove from the recipe list (so as to not duplicate on the same day)
-                            recipes.remove(recipe)
+                        value = int(recipe.get('calories')) # Find the 'calories' value
+                        if min_cal < value < max_cal: # Check value within acceptable range
+                            self.todays_meals.append(recipe) # Append to todays meals
+                            recipes.remove(recipe) # Remove from the recipe list (so as to not duplicate on the same day)
                             meal_found = True
-                            # Exit the loop
-                            break
+                            break # Exit the loop
 
                     if meal_found == False:
                         meal_found = True
-                        raise Exception(
-                            "Sorry, we couldn't find a recipe for this meal.")
+                        raise Exception("Sorry, we couldn't find a recipe for this meal.")
 
             # Check that meal total is acceptable close to the users target calories
             total_calories = 0
@@ -119,11 +105,11 @@ class Day():
             # If within target, mark meal as completed
             if daily_min_cal < total_calories < daily_max_cal:
                 meal_completed = True
+
             # Otherwise, start again
             else:
                 self.todays_meals = []
-                recipes = get_recipes()
-                random.shuffle(recipes)
+                self.shuffle_recipes()
                 attempts += 1
 
         if attempts >= 100:
@@ -134,11 +120,9 @@ class Day():
     def print_daily_meal(self):
         total_calories = 0
         print(f"\nBased on your daily calorie goal, here is today's meals: \n")
+        semantic_meal_names = ["Breakfast", "Lunch", "Dinner", "Snack 1", "Snack 2"] # Meal names readable and with meaning for the user
 
-        semantic_meal_names = ["Breakfast",
-                               "Lunch", "Dinner", "Snack 1", "Snack 2"]
-
-        for meal_name, semantic_name in zip(self.todays_meals, semantic_meal_names):
+        for meal_name, semantic_name in zip(self.todays_meals, semantic_meal_names): # Zip dict and list together to iterate through both
             total_calories += int(meal_name['calories'])
             print(f"{semantic_name}: {meal_name['title']} ({
                   meal_name['calories']} calories) ")

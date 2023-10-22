@@ -1,10 +1,13 @@
 # Import statements 
 import pprint
 import recipes
-from meals import InvalidInputError
 from meals import Day
 
-#----------------------------------------------------------------
+# ----------------------------------------------------------------
+
+# Exception for invalid inputs
+class InvalidInputError(Exception):
+    pass
 
 # Get user calorie target
 def get_calorie_target():
@@ -27,7 +30,6 @@ def main():
     print(f"Hey, welcome to Meal Planner! Please choose from one of the actions below to get started\n") # Welcome
 
     while True:
-
         try:
             user_action = input("What would you like to do?\nEnter 'a' to add a new recipe\nEnter 'v' to view all recipes\nEnter 'n' to start a new meal plan for one day\nEnter 'c' to start a new meal plan for a custom number of days\nOr enter 'q' to quit:\n").lower() # Entry point
 
@@ -43,7 +45,6 @@ def main():
             elif user_action == 'n':
                 # Continuously loop until the user is happy with their meal plan
                 while True:
-
                     # Get daily calorie target
                     calorie_target = get_calorie_target()
                     
@@ -120,7 +121,7 @@ def main():
             elif user_action == 'q':
                 quit()
 
-        # Raise exception if anything outside of 'a', 'v', 'v', 'c' or 'q'
+        # Raise exception if anything outside of 'a', 'v', 'v', 'c' or 'q' is entered
         except:
             raise InvalidInputError("Invalid input. Please enter one of: 'a' 'v', 'n', 'c' or 'q'.")
         

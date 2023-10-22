@@ -3,6 +3,9 @@ from recipes import get_recipes
 
 # ----------------------------------------------------------------
 
+class InvalidInputError(Exception):
+    pass
+
 class Day():
     def __init__(self, calorie_target):
         self.calorie_target = calorie_target

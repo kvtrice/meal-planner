@@ -86,7 +86,7 @@ def main():
                         day_number += 1
 
                     # Check with the user if they're happy with the meals plan
-                    day.check_result()
+                    day.check_result(all_meals)
                     
                     # If loop repeats (user re-rolled), print:
                     print("\nRegenerating meal plan...\n")

@@ -17,6 +17,7 @@ class Day():
         # Set the meal calories (based on the calorie range) each time a day is initialized
         self.set_meal_calories()
         self.todays_meals = []  # Empty list for todays meals
+        self.semantic_names = ["Breakfast","Lunch", "Dinner", "Snack 1", "Snack 2"]
 
     # Set the calories required for each meal based on user calorie target
     def set_meal_calories(self):
@@ -129,10 +130,9 @@ class Day():
     # Function to print the days meal plan once it's been set
     def print_daily_meal(self):
         total_calories = 0
-        semantic_meal_names = ["Breakfast","Lunch", "Dinner", "Snack 1", "Snack 2"] # Meal names readable and with meaning for the user
 
         # Zip dict and list together to iterate through both
-        for meal_name, semantic_name in zip(self.todays_meals, semantic_meal_names):
+        for meal_name, semantic_name in zip(self.todays_meals, self.semantic_names):
             total_calories += int(meal_name['calories'])
             print(f"{semantic_name}: {meal_name['title']} ({
                   meal_name['calories']} calories) ")
@@ -141,14 +141,45 @@ class Day():
         print(f"\nThe total calories for the day is: {total_calories}\n")
 
 
+    # Print user meals to a text file
+    def output_meals(self, all_meals, filename):
+        f = open(filename, 'w')
+        day_number = 1
+        
+        for day in all_meals:
+            f.write(f"\nDay {day_number} Meal Plan:\n")
+            total_calories = 0
+            
+            # Write each meal to the file:
+            for meal_name in day.todays_meals:
+
+                # Attach semantic names to each meal
+                semantic_name = self.semantic_names[day.todays_meals.index(meal_name)]
+                
+                # Nicely formatted meals for the text file
+                meal_str = f"{semantic_name}: {meal_name['title']} ({meal_name['calories']} calories)\nIngredients: {meal_name['ingredients']}\n"
+                
+                # Write to the text file
+                f.write(meal_str)
+                
+                # Increase the calories each meal to sum them
+                total_calories += int(meal_name['calories'])
+
+            # Print the calories per day
+            f.write(f"The total calories for the day is: {total_calories}\n")
+            day_number += 1
+
+            
     # Check with user if they're happy with the meal plan
-    def check_result(self):
+    def check_result(self, all_meals):
         while True:
             try:
                 result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
 
                 # Act based on the result
                 if result == 's':
+                    filename = input("Great, let's save these for you. What should the save file be called?: ")
+                    self.output_meals(all_meals, filename)
                     print("\nYour meals have been saved!\n")
                     break
                 # If no

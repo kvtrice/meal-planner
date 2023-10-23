@@ -1,6 +1,6 @@
 # Import statements 
-import pprint
 import recipes
+import argparse
 from meals import Day, InvalidInputError
 
 # ----------------------------------------------------------------
@@ -23,7 +23,22 @@ def get_calorie_target():
 
 def main():
 
-    print(f"Hey, welcome to Meal Planner! Please choose from one of the actions below to get started\n") # Welcome
+    # Argparse to add recipe from the commandline
+    parser = argparse.ArgumentParser(description="Your app description")
+    parser.add_argument("--title", required=True, help="Name of the recipe")
+    parser.add_argument("--ingredients", required=True, help="Ingredients for 1 serving")
+    parser.add_argument("--calories", type=int, required=True, help="Calories for 1 serving")
+
+    args = parser.parse_args()
+
+    # Call the add recipe via cli function and pass the args
+    recipes.add_recipe_from_cli(args)
+
+    # ----------------------------------------------------------------
+    # Main application start
+
+    # // Welcome
+    print(f"Hey, welcome to Meal Planner! Please choose from one of the actions below to get started\n")
 
     while True:
         try:

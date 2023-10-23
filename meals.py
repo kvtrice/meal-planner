@@ -17,7 +17,6 @@ class Day():
         # Set the meal calories (based on the calorie range) each time a day is initialized
         self.set_meal_calories()
         self.todays_meals = []  # Empty list for todays meals
-        self.day_result = None
 
     # Set the calories required for each meal based on user calorie target
     def set_meal_calories(self):
@@ -142,15 +141,25 @@ class Day():
         print(f"\nThe total calories for the day is: {total_calories}\n")
 
 
-    # Check with user if they're happy with the meals for the day
-    def day_check(self):
+    # Check with user if they're happy with the meal plan
+    def check_result(self):
         while True:
             try:
-                self.day_result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
-                if self.day_result in ['s', 'n']:
+                result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
+
+                # Act based on the result
+                if result == 's':
+                    print("\nYour meals have been saved!\n")
                     break
-                else:
-                    print("Invalid input. Please enter either 's' or 'n'.")
+                # If no
+                elif result == 'n':
+                    # Also ask if want to change calorie target
+                    change_calorie_target = input(f"Do you want to change your daily calorie target of {self.calorie_target} calories? Enter 'y' to change or 'n' to keep your current target: ").lower()
+
+                    # Raise Exception if invalid input
+                    if change_calorie_target != 'y' and change_calorie_target != 'n':
+                        raise Exception("Invalid input. Please enter either 'y' or 'n'.")
+        
             except InvalidInputError:
                 print("Invalid input. Please enter either 's' or 'n'.")
     

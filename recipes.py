@@ -1,5 +1,4 @@
 import csv
-import argparse
 
 # ----------------------------------------------------------------
 
@@ -17,13 +16,6 @@ def add_recipe_to_CSV(new_recipe):
 
 # Function to add a recipe from commandline
 def add_recipe_from_cli(args):
-    parser = argparse.ArgumentParser(description="Add a new recipe")
-    parser.add_argument("--title", required=True, help="Name of the recipe")
-    parser.add_argument("--ingredients", required=True, help="Ingredients for 1 serving")
-    parser.add_argument("--calories", type=int, required=True, help="Calories for 1 serving")
-
-    args = parser.parse_args()
-
     # Process the provided command-line arguments and add the recipe
     new_recipe = {'title': args.title, 'ingredients': args.ingredients, 'calories': args.calories}
 

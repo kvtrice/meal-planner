@@ -31,8 +31,10 @@ def main():
 
     args = parser.parse_args()
 
-    # Call the add recipe via cli function and pass the args
-    recipes.add_recipe_from_cli(args)
+    # Check if a recipe as been added from the command line
+    if args.title or args.ingredients or args.calories:
+        # Call the add recipe via cli function and pass the args
+        recipes.add_recipe_from_cli(args)
 
     # ----------------------------------------------------------------
     # Main application start
@@ -42,7 +44,7 @@ def main():
 
     while True:
         try:
-            user_action = input("What would you like to do?\nEnter 'a' to add a new recipe\nEnter 'v' to view all recipes\nEnter 'n' to start a new meal plan for one day\nEnter 'c' to start a new meal plan for a custom number of days\nOr enter 'q' to quit:\n").lower() # Entry point
+            user_action = input("What would you like to do?\na = Add a new recipe\nv = View all recipes\nn = Start a new meal plan for one day\nc = Start a new meal plan for a custom number of days\nq = quit\n").lower() # Entry point
 
             # Add a new recipe ----------------------------------------------------------------
             if user_action == 'a':
@@ -82,7 +84,7 @@ def main():
                     # If no
                     elif day_result == 'n':
                         # Also ask if want to change calorie target
-                        change_calorie_target = input(f"Do you want to change your daily calorie target of {day.calorie_target} calories? Enter 'y' to change or 'n' to keep your curent target: ").lower()
+                        change_calorie_target = input(f"Do you want to change your daily calorie target of {day.calorie_target} calories? Enter 'y' to change or 'n' to keep your current target: ").lower()
 
                         # Raise Exception if invalid input
                         if change_calorie_target != 'y' and change_calorie_target != 'n':

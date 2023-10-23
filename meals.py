@@ -1,4 +1,6 @@
 import random
+import datetime
+import time
 from recipes import get_recipes
 
 # ----------------------------------------------------------------
@@ -18,6 +20,7 @@ class Day():
         self.set_meal_calories()
         self.todays_meals = []  # Empty list for todays meals
         self.semantic_names = ["Breakfast","Lunch", "Dinner", "Snack 1", "Snack 2"]
+        self.result = None
 
     # Set the calories required for each meal based on user calorie target
     def set_meal_calories(self):
@@ -145,7 +148,12 @@ class Day():
     def output_meals(self, all_meals, filename):
         f = open(filename, 'w')
         day_number = 1
-        
+
+        t = time.localtime()
+        current_time = time.strftime("%H:%M", t)
+
+        f.write(f"\nRetrieved on {datetime.date.today()} at {current_time}.\n")
+
         for day in all_meals:
             f.write(f"\nDay {day_number} Meal Plan:\n")
             total_calories = 0
@@ -174,16 +182,17 @@ class Day():
     def check_result(self, all_meals):
         while True:
             try:
-                result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
+                self.result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
 
                 # Act based on the result
-                if result == 's':
+                if self.result == 's':
                     filename = input("Great, let's save these for you. What should the save file be called?: ")
                     self.output_meals(all_meals, filename)
                     print("\nYour meals have been saved!\n")
                     break
+                
                 # If no
-                elif result == 'n':
+                elif self.result == 'n':
                     # Also ask if want to change calorie target
                     change_calorie_target = input(f"Do you want to change your daily calorie target of {self.calorie_target} calories? Enter 'y' to change or 'n' to keep your current target: ").lower()
 

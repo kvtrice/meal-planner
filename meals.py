@@ -98,7 +98,7 @@ class Day():
 
                     if meal_found == False:
                         meal_found = True
-                        raise FindRecipeError("Sorry, we were unable to find a suitable meal for you at this time. Please try again with a different calorie target or add some more recipes.")
+                        raise FindRecipeError("Sorry, we were unable to find a suitable meal for you with the current calorie target and available recipes. Please consider one of the following options:\n1. Adjust your daily calorie target to a different target.\n2. Add more recipes to your collection.")
 
             # Check that meal total is acceptable close to the users target calories
             total_calories = 0
@@ -121,7 +121,8 @@ class Day():
                 attempts += 1
 
         if attempts >= 1000:
-            raise FindRecipeError("Sorry, we were unable to find a suitable meal plan for you at this time. Please try again with a different calorie target or add some more recipes.")
+            raise FindRecipeError("Sorry, we were unable to find a suitable meal plan for you with the current calorie target and available recipes. Please consider one of the following options:\n1. Adjust your daily calorie target to a different target.\n2. Add more recipes to your collection.\n3. Try generating a meal plan for a different number of days.")
+
 
     # Function to print the days meal plan once it's been set
     def print_daily_meal(self):
@@ -140,8 +141,13 @@ class Day():
 
     # Check with user if they're happy with the meals for the day
     def day_check(self):
-        try:
-            self.day_result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
-        except InvalidInputError:
-            print(("Invalid input. Please enter either 's' or 'n'."))
+        while True:
+            try:
+                self.day_result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
+                if self.day_result in ['s', 'n']:
+                    break
+                else:
+                    print("Invalid input. Please enter either 's' or 'n'.")
+            except InvalidInputError:
+                print("Invalid input. Please enter either 's' or 'n'.")
     

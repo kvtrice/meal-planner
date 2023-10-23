@@ -11,18 +11,19 @@ class InvalidInputError(Exception):
 
 # Get user calorie target
 def get_calorie_target():
-        try:
-            calorie_target = int(input("What is your daily calorie target? Please enter a target between 1400 - 3000 Calories: ")) # Prompt for user input
-            
-            try: 
-                if calorie_target < 1400 or calorie_target > 3000:
-                    return calorie_target
-            except InvalidInputError: # If not in one of these ranges then raise an exception
-                print("Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
+        while True:
+            try:
+                calorie_target = int(input("What is your daily calorie target? Please enter a target between 1400 - 3000 Calories: ")) # Prompt for user input
+                
+                try: 
+                    if calorie_target < 1400 or calorie_target > 3000:
+                        return calorie_target
+                except InvalidInputError: # If not in one of these ranges then raise an exception
+                    print("Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
 
-        # Raise exception if a string is entered rather than a number
-        except ValueError:
-            print(("Calorie target cannot be a string! Please enter a number between 1400 and 3000."))
+            # Raise exception if a string is entered rather than a number
+            except ValueError:
+                print(("Calorie target cannot be a string! Please enter a number between 1400 and 3000."))
 
 
 def main():
@@ -121,9 +122,12 @@ def main():
             elif user_action == 'q':
                 quit()
 
+            else:
+                raise InvalidInputError("Invalid input. Please enter one of: 'a' 'v', 'n', 'c' or 'q'.")
+
         # Raise exception if anything outside of 'a', 'v', 'v', 'c' or 'q' is entered
-        except:
-            raise InvalidInputError("Invalid input. Please enter one of: 'a' 'v', 'n', 'c' or 'q'.")
+        except InvalidInputError as e:
+            print(e)
         
 
 if __name__ == "__main__":

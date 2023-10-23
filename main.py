@@ -56,16 +56,18 @@ def main():
                 recipes.display_all_recipes()
 
             
-            # Create a new Meal plan for custom number of days --------------------------------------------------------------
+            # Create a new Meal plan for custom number of days --------------------------------
             elif user_action == 'n':
+                num_days = int(input("How many days would you like to get a meal plan for?: "))
+
+                # Get calorie target for all days
+                calorie_target = get_calorie_target()
+
                 # Continuously loop until the user is happy with their meal plan
                 while True:
-                    num_days = int(input("How many days would you like to get a meal plan for?: "))
+                    
                     all_meals = []
-
-                    # Get calorie target for all days
-                    calorie_target = get_calorie_target()
-
+                    
                     for i in range(num_days):
 
                         # Create a Day object and set the calorie range and daily calories
@@ -84,18 +86,22 @@ def main():
                         print(f"Day {day_number} Meal Plan:\n")
                         day.print_daily_meal()
                         day_number += 1
-
-                    # Check with the user if they're happy with the meals plan
-                    day.check_result(all_meals)
+                    
+                    # Break out of loop if meals are saved
+                    day.result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
 
                     if day.result == 's':
+                        day.save_meal_plan(all_meals)
                         break
-                    
-                    # If loop repeats (user re-rolled), print:
-                    print("\nRegenerating meal plan...\n")
 
+                    elif day.result == 'n':
 
-            # Quit the program ---------------------------------------------------------------
+                        if day.check_calorie_change():
+                            calorie_target = get_calorie_target()
+                        
+                        print("\nRegenerating meal plan...\n")
+
+            # Quit the program -------------------------------------------------------------
             elif user_action == 'q':
                 quit()
 
@@ -109,5 +115,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

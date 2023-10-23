@@ -179,27 +179,29 @@ class Day():
 
             
     # Check with user if they're happy with the meal plan
-    def check_result(self, all_meals):
+    def save_meal_plan(self, all_meals):
+        self.change_calories = None
+        filename = input("Great, let's save these for you. What should the save file be called?: ")
+        self.output_meals(all_meals, filename)
+        print("\nYour meals have been saved!\n")
+
+        
+    def check_calorie_change(self):
         while True:
             try:
-                self.result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
+                change_calories = input(f"Do you want to change your daily calorie target of {self.calorie_target} calories? Enter 'y' to change or 'n' to keep your current target: ").lower()
 
-                # Act based on the result
-                if self.result == 's':
-                    filename = input("Great, let's save these for you. What should the save file be called?: ")
-                    self.output_meals(all_meals, filename)
-                    print("\nYour meals have been saved!\n")
-                    break
+                # Break as long as valid input received
+                if change_calories == 'y':
+                    return True
                 
-                # If no
-                elif self.result == 'n':
-                    # Also ask if want to change calorie target
-                    change_calorie_target = input(f"Do you want to change your daily calorie target of {self.calorie_target} calories? Enter 'y' to change or 'n' to keep your current target: ").lower()
+                elif change_calories == 'n':
+                    return False
+                
+                else:
+                    raise Exception("Invalid input. Please enter either 'y' or 'n'.")
 
-                    # Raise Exception if invalid input
-                    if change_calorie_target != 'y' and change_calorie_target != 'n':
-                        raise Exception("Invalid input. Please enter either 'y' or 'n'.")
-        
-            except InvalidInputError:
-                print("Invalid input. Please enter either 's' or 'n'.")
+            # Raise Exception if invalid input
+            except InvalidInputError as e:
+                print(e)
     

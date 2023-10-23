@@ -66,13 +66,11 @@ class Day():
                 "M5": 400,
             }
 
-
     def shuffle_recipes(self):
         recipe_list = get_recipes()  # Get all recipes (as a dictionary)
         # Shuffle recipes so it's a random one being returned
         random.shuffle(recipe_list)
         return recipe_list
-
 
     # Function to find and select meals for the specified calorie_ranges
     def set_meals(self):
@@ -129,7 +127,6 @@ class Day():
         if attempts >= 1000:
             raise FindRecipeError("Sorry, we were unable to find a suitable meal plan for you with the current calorie target and available recipes. Please consider one of the following options:\n1. Adjust your daily calorie target to a different target.\n2. Add more recipes to your collection.\n3. Try generating a meal plan for a different number of days.")
 
-
     # Function to print the days meal plan once it's been set
     def print_daily_meal(self):
         total_calories = 0
@@ -143,16 +140,20 @@ class Day():
 
         print(f"\nThe total calories for the day is: {total_calories}\n")
 
-
     # Print user meals to a text file
     def output_meals(self, all_meals, filename):
         f = open(filename, 'w')
         day_number = 1
 
+        # Get current time
         t = time.localtime()
         current_time = time.strftime("%H:%M", t)
 
-        f.write(f"\nRetrieved on {datetime.date.today()} at {current_time}.\n")
+        # Get current date
+        d = datetime.datetime.today()
+        todays_date = d.strftime("%d-%m-%Y")
+
+        f.write(f"\nRetrieved on {todays_date} at {current_time}.\n")
 
         for day in all_meals:
             f.write(f"\nDay {day_number} Meal Plan:\n")
@@ -175,23 +176,20 @@ class Day():
 
             # Print the calories per day
             f.write(f"The total calories for the day is: {total_calories}\n")
-            day_number += 1
-
-            
+            day_number += 1 # Increment day
+      
     # Check with user if they're happy with the meal plan
     def save_meal_plan(self, all_meals):
-        self.change_calories = None
-        filename = input("Great, let's save these for you. What should the save file be called?: ")
-        self.output_meals(all_meals, filename)
+        filename = input("Great, let's save these for you. What should the save file be called?: ") # Get filename from user
+        self.output_meals(all_meals, filename) # Save to file via output_meal function
         print("\nYour meals have been saved!\n")
 
-        
+    # Check with user if they want to change their calorie target when re-rolling their meal plan
     def check_calorie_change(self):
         while True:
             try:
                 change_calories = input(f"Do you want to change your daily calorie target of {self.calorie_target} calories? Enter 'y' to change or 'n' to keep your current target: ").lower()
 
-                # Break as long as valid input received
                 if change_calories == 'y':
                     return True
                 

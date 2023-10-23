@@ -1,13 +1,9 @@
 # Import statements 
 import pprint
 import recipes
-from meals import Day
+from meals import Day, InvalidInputError
 
 # ----------------------------------------------------------------
-
-# Exception for invalid inputs
-class InvalidInputError(Exception):
-    pass
 
 # Get user calorie target
 def get_calorie_target():
@@ -15,15 +11,14 @@ def get_calorie_target():
             try:
                 calorie_target = int(input("What is your daily calorie target? Please enter a target between 1400 - 3000 Calories: ")) # Prompt for user input
                 
-                try: 
-                    if calorie_target < 1400 or calorie_target > 3000:
-                        return calorie_target
-                except InvalidInputError: # If not in one of these ranges then raise an exception
+                if 1400 <=  calorie_target <= 3000:
+                    return calorie_target  
+                else:
                     print("Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
 
             # Raise exception if a string is entered rather than a number
-            except ValueError:
-                print(("Calorie target cannot be a string! Please enter a number between 1400 and 3000."))
+            except InvalidInputError:
+                print("Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
 
 
 def main():
@@ -56,6 +51,7 @@ def main():
                     day.set_meals()
 
                     # Print the daily meal plan
+                    print("\nBased on your daily calorie target, here are today's meals:\n")
                     day.print_daily_meal()
 
                     # Check with the user if they're happy with the meals for the day
@@ -105,9 +101,10 @@ def main():
                         custom_num_days.append(custom_day)
                     
                     # Print the meal plan for all days
+                    print("\nHere are your daily meal plans:\n")
                     day_number = 1
                     for day in custom_num_days:
-                        print(f"Day {day_number} Meal Plan:")
+                        print(f"Day {day_number} Meal Plan:\n")
                         day.print_daily_meal()
                         day_number += 1
 

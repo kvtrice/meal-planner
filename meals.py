@@ -1,9 +1,12 @@
 import random
 from recipes import get_recipes
-from main import InvalidInputError
 
 # ----------------------------------------------------------------
+# Exception for invalid inputs
+class InvalidInputError(Exception):
+    pass
 
+# Exception for when unable to find a valid recipe
 class FindRecipeError(Exception):
     pass
 

@@ -92,13 +92,10 @@ Once the application has been cloned, navigate into the application directory by
 cd meal-planner
 ```
 
-Finally, run the executable file below, this will automatically create and activate a virtual python environment for you, install all dependencies and run the python file:
+Finally, copy and run the script below, this will automatically create and activate a virtual python environment for you, install all dependencies and run the python file:
 
 ```bash
-python3 -m venv .venv 
-source .venv/bin/activate
-pip install -r requirements.txt
-python3 main.py
+./setup.sh
 ```
 ---
 
@@ -141,7 +138,7 @@ python3 main.py
 * When prompted, enter in the number of days you would like a meal plan for (an integer between 1 and 14)
 * When prompted, enter in your daily calorie target (an integer between 1400 and 3000)
 * Review the meal plans presented to you on screen
-    * If you'd like to reegenerate the meal plans, hit `n` and follow the prompts
+    * If you'd like to regenerate the meal plans, hit `n` and follow the prompts
     * If you'd like to save the meal plan, hit `s` and follow the prompts
 
 * Once your meal plan is saved, you can access your meal plan directly file from the source directory, for example:

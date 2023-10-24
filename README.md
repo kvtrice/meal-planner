@@ -13,14 +13,14 @@
 * [Installation and Help Docs](#help-and-installation-instructions)
 * [References](#references)
 
-## Purpose and Overview
+## 📖 Purpose and Overview
 Meal Planner is a terminal application that helps make meal planning easy. As a user, you're able to define what your daily calorie target is (e.g. 1800 calories) and from there the program will randomly generate a meal plan that's within an acceptable range to the target the user has set. 
 
 The meal plan will consist of 5 meals (Breakfast, Lunch, Dinner and 2 snacks) and the meals are chosen from a CSV list of recipes, that the user is able to both view and add to.
 
 This application has allowed me to demonstrate my ability to effectively accept user input and interact with file systems, alongside the broader ability to design and implement a commandline application complete with the utilisation of multiple pakages and unit testing.
 
-## Features
+## ✨ Features
 There are a number of key features of my application, with each outlined at a high level below:
 
 ### 1. Add a new recipe
@@ -66,9 +66,131 @@ Additionally, once the user is shown their meal plan, they're given the option t
 
 Finally, once the user is happy with their plan, the plan is displayed to them on screen, complete with numbered days and semantic meal names. Once the user is happy with their meal they can save it, and upon doing so they are prompted to enter a `filename`. The meal plan is then saved to a file with this filename in the source directory for access later. The data & time of the meal plan is included so if multiple meal plans are savevd, the user can distinguish between them.
 
-## Development Plan
+## 📋 Help and Installation Instructions
+These steps are for MacOS, steps may differ for Windows and other operating systems.
+It is also assumed that Python 3.11 or higher is already installed on your PC. Alternatively, for instructions on how to do that [head over here](https://wiki.python.org/moin/BeginnersGuide/Download).
 
-#### Prioritisation Approach
+### Steps to install the application
+#### 1. Clone the application
+
+Within your terminal, navigate to the folder where you would like to save the program. For example:
+
+```bash
+cd projects/python
+```
+
+Once inside the directory where you would like the program to be stored, clone the application using the following command:
+
+```bash
+git clone https://github.com/kvtrice/meal-planner.git
+```
+
+#### 2. Run the executable file
+Once the application has been cloned, navigate into the application directory by using the following:
+
+```bash
+cd meal-planner
+```
+
+Finally, run the executable file below, this will automatically create and activate a virtual python environment for you, install all dependencies and run the python file:
+
+```bash
+python3 -m venv .venv 
+source .venv/bin/activate
+pip install -r requirements.txt
+python3 main.py
+```
+---
+
+### How to use the application
+
+#### 1. Add a new recipe via the terminal
+To add a new recipe to the application from the commandline, enter into the folder where the application is located, for example:
+
+```bash
+cd projects/python/meal-planner
+```
+
+Run the following script, replacing the `title`, `ingredients` and `calories` with your own recipes details.
+
+All recipes added assume a serving size of 1. Both the title and the ingredients are *strings*, calories is an *integer*
+
+```python
+python3 main.py --title "Spaghetti Bolognese" --ingredients "2 Tomatoes, 500g Beef Mince, Spaghetti" --calories 540
+```
+
+#### 2. Add a new recipe within the application
+
+To add a new recipe from the application, run the application:
+
+```bash
+cd projects/python/meal-planner
+python3 main.py
+```
+
+* From the user menu, simply enter the letter `a` to add a new recipe, and follow the prompts
+
+
+#### 3. View all recipes (printed to screen)
+
+* With the application running, to view all recipes simply enter the letter `v` to have all recipes printed to the screen (Note: This might be a long list!)
+
+#### 4. Start a new meal plan
+
+* With the application running, enter the letter `n` to start a new meal plan. 
+* When prompted, enter in the number of days you would like a meal plan for (an integer between 1 and 14)
+* When prompted, enter in your daily calorie target (an integer between 1400 and 3000)
+* Review the meal plans presented to you on screen
+    * If you'd like to reegenerate the meal plans, hit `n` and follow the prompts
+    * If you'd like to save the meal plan, hit `s` and follow the prompts
+
+* Once your meal plan is saved, you can access your meal plan directly file from the source directory, for example:
+
+```bash
+cd projects/python/meal-planner/your-file.txt
+```
+
+### System and Hardware Requirements
+The following minimum hardware requirements are required to run the application (equivalent to the minimum hardware requirements for running Python)
+* MacOS 10.11 or later
+* Miniumum 4GB RAM (but 8-16GB is highly recommended)
+* x86 64-bit CPU
+* Minimum 5GB free disk space
+
+### Dependencies
+As also found in requirements.txt
+```
+beautifulsoup4==4.12.2
+certifi==2023.7.22
+charset-normalizer==3.3.0
+extruct==0.16.0
+html-text==0.5.2
+html5lib==1.1
+idna==3.4
+iniconfig==2.0.0
+isodate==0.6.1
+jstyleson==0.0.2
+lxml==4.9.3
+mf2py==1.1.3
+packaging==23.2
+pluggy==1.3.0
+pyparsing==3.1.1
+pyRdfa3==3.5.3
+pytest==7.4.2
+rdflib==7.0.0
+requests==2.31.0
+six==1.16.0
+soupsieve==2.5
+urllib3==2.0.7
+w3lib==2.1.2
+webencodings==0.5.1
+```
+
+## 💻 Development Plan
+
+### Prioritisation Approach
+
+[Link to development plan (Linear)](https://linear.app/kats-workspace/join/88596d7e69b639b4a651783417b35e23?s=4)
 
 I started out by getting all my ideas for the application out on the development board. I realised quickly that I had more ideas that what would likely be feasible in the amount of time I had so I prioritised things baed on what was a must-have, or `MVP` vs. what was a `nice-to-have` (if time permits).
 
@@ -76,7 +198,7 @@ MVP features were features that were critical to the core functionality of my ap
 
 I also labelled each card with the title of the feature that it was related to, and built out sub-issues under each main issue to outline the steps required in order to implement it - at least, my best attempt at what I thought was the best solution at the time... many of my initial approaches changed or were tweaked as I built out the project and learnt more and more.
 
-Ultimately, a few `nice-to-have` features didn't make the cut based on their priority; the overview can be seen below:
+Ultimately, a few `nice-to-have` features were cancelled based on their priority. Given more time, these would be great enhancements to build onto the applications functionality in the future. The overview of these can be seen below:
 
 #### MVP Features
 * Feature 1: Add a new recipe - `implemented`
@@ -93,7 +215,7 @@ Ultimately, a few `nice-to-have` features didn't make the cut based on their pri
 * Feature 6: Allow user to set dietary requirements for their meal plan - `cancelled`
 * Feature 7: Allow user to set custom calories per meal - `cancelled`
 
-#### Guide to Linear Boards
+### Guide to Linear Boards
 
 ![linear_overview](docs/development_plan/linear_overview.jpg)
 
@@ -147,19 +269,5 @@ Day end:
 ![new_recipe](docs/development_plan/feature_checklists/new_recipe.jpg)
 ![calorie_target](docs/development_plan/feature_checklists/calorie_target.jpg)
 ![multiple_days](docs/development_plan/feature_checklists/multiple_days.jpg)
-
-## Help and Installation Instructions
-#### Steps to install the application
-
-
-#### Dependencies
-
-
-#### System and Hardware Requirements
-
-
-#### How to use the application
-
-
 
 ## References

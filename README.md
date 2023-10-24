@@ -70,17 +70,44 @@ Finally, once the user is happy with their plan, the plan is displayed to them o
 
 #### Prioritisation Approach
 
+I started out by getting all my ideas for the application out on the development board. I realised quickly that I had more ideas that what would likely be feasible in the amount of time I had so I prioritised things baed on what was a must-have, or `MVP` vs. what was a `nice-to-have` (if time permits).
 
-#### Feature 1: 
+MVP features were features that were critical to the core functionality of my application (creating a meal plan, adding a recipe), where as the nice-to-have's were features that whilst they could potentially enhance the user experience, they wouldn't utlimately make or break the experience. Each ticket was also estimated using t-shirt sizing (S, M, L etc.), and based on this I was able to prioritize my time and attention.
+
+I also labelled each card with the title of the feature that it was related to, and built out sub-issues under each main issue to outline the steps required in order to implement it - at least, my best attempt at what I thought was the best solution at the time... many of my initial approaches changed or were tweaked as I built out the project and learnt more and more.
+
+#### MVP Features
+* Feature 1: Add a new recipe - `implemented`
+    * Import pre-populated list of recipes - `implemented`
+    * View recipe list - `implemented`
+* Feature 2: Create a meal plan based on users calorie target - `implemented`
+* Feature 3: Create a meal plan for specified number of days - `implemented`
+    * Ability to re-roll the meal plan - `implemented`
+
+#### Nice-to-have Features
+* Feature 4: Print meal plan to a CSV - `changed`
+    * Requirement changed to instead print to a text file - `implemented`   
+* Feature 5: Remove a recipe from the recipe list - `cancelled`
+* Feature 6: Allow user to set dietary requirements for their meal plan - `cancelled`
+* Feature 7: Allow user to set custom calories per meal - `cancelled`
+
+#### Guide to Linear Boards
 
 
-#### Feature 2: 
+
+**Day 1**
 
 
-#### Feature 3: 
+**Day 2**
 
 
-#### Nice-to-have's / Out of scope:
+**Day 3**
+
+
+**Day 4**
+
+
+**Day 5**
 
 
 ## Help and Installation Instructions

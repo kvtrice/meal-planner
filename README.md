@@ -76,6 +76,8 @@ MVP features were features that were critical to the core functionality of my ap
 
 I also labelled each card with the title of the feature that it was related to, and built out sub-issues under each main issue to outline the steps required in order to implement it - at least, my best attempt at what I thought was the best solution at the time... many of my initial approaches changed or were tweaked as I built out the project and learnt more and more.
 
+Ultimately, a few `nice-to-have` features didn't make the cut based on their priority; the overview can be seen below:
+
 #### MVP Features
 * Feature 1: Add a new recipe - `implemented`
     * Import pre-populated list of recipes - `implemented`
@@ -93,22 +95,58 @@ I also labelled each card with the title of the feature that it was related to, 
 
 #### Guide to Linear Boards
 
-
+![linear_overview](docs/development_plan/linear_overview.jpg)
 
 **Day 1**
 
+![day_1](docs/development_plan/day_1/day_1.jpg)
+![add_recipes](docs/development_plan/day_1/add_recipes.jpg)
+![calorie_ranges](docs/development_plan/day_1/calorie_ranges.jpg)
+![new_recipe_user_input](docs/development_plan/day_1/new_recipe_user_input.jpg)
 
 **Day 2**
 
+![day_2](docs/development_plan/day_2/day_2.jpg)
+![meal_plans](docs/development_plan/day_2/meal_plans.jpg)
+![recipe_list](docs/development_plan/day_2/recipe_list.jpg)
 
 **Day 3**
 
+Day start:
+![day_3_start](docs/development_plan/day_3/day_start/day_3_start.jpg)
+![display_meals](docs/development_plan/day_3/day_start/display_meals.jpg)
+![regenerate_meals](docs/development_plan/day_3/day_start/regenerate_meal_plan.jpg)
+![user_entry](docs/development_plan/day_3/day_start/user_entry.jpg)
+
+Day end:
+![day_3_end](docs/development_plan/day_3/day_end/day_3_end.jpg)
+![custom_num_days](docs/development_plan/day_3/day_end/custom_num_days.jpg)
+![multi_regenerate](docs/development_plan/day_3/day_end/multi_regenerate.jpg)
+![num_days_prompt](docs/development_plan/day_3/day_end/num_days_prompt.jpg)
+![display_multi_meals](docs/development_plan/day_3/day_end/display_multi_meals.jpg)
 
 **Day 4**
 
+Day start:
+![day_4_start](docs/development_plan/day_4/day_start/day_4_start.jpg)
+![exceptions](docs/development_plan/day_4/day_start/exceptions.jpg)
+
+Day mid:
+![day_4_mid](docs/development_plan/day_4/day_start/day_4_mid.jpg)
+
+Day end:
+![day_4_end](docs/development_plan/day_4/day_end/day_4_end.jpg)
+![recipes_bug](docs/development_plan/day_4/day_end/recipes_bug.jpg)
 
 **Day 5**
 
+![day_5](docs/development_plan/day_5/day_5.jpg)
+
+**Feature Checklists**
+
+![new_recipe](docs/development_plan/feature_checklists/new_recipe.jpg)
+![calorie_target](docs/development_plan/feature_checklists/calorie_target.jpg)
+![multiple_days](docs/development_plan/feature_checklists/multiple_days.jpg)
 
 ## Help and Installation Instructions
 #### Steps to install the application

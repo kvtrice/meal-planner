@@ -91,25 +91,22 @@ def main():
                         print(f"Day {day_number} Meal Plan:\n")
                         day.print_daily_meal() # Call print function for each daily meal
                         day_number += 1 # Increment number
-                    
-                    while True:
 
-                        # Check if user is happy with their meals
-                        day.result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
+                    # Check if user is happy with their meals
+                    day.result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
 
-                        if day.result == 's':
-                            day.save_meal_plan(all_meals) # Save the meals to a file
+                    if day.result == 's':
+                        if day.save_meal_plan(all_meals): # Save the meals to a file
                             break
 
-                        elif day.result == 'n':
-                            if day.check_calorie_change(): # Check if user wants to change calorie target is True
-                                calorie_target = get_calorie_target()
-                                print("\nRegenerating meal plan...\n")
-                                break
+                    elif day.result == 'n':
+                        if day.check_calorie_change(): # Check if user wants to change calorie target is True
+                            calorie_target = get_calorie_target()
+                            print("\nRegenerating meal plan...\n")
 
-                        else:
-                            raise InvalidInputError("Invalid input. Please enter 's' to save or 'n' to generate a new meal plan")
-                
+                    else:
+                        raise InvalidInputError("Invalid input. Please enter 's' to save or 'n' to generate a new meal plan")
+            
 
             # Quit the program -------------------------------------------------------------
             elif user_action == 'q':

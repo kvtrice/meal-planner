@@ -5,35 +5,29 @@ from meals import Day, InvalidInputError
 
 # ----------------------------------------------------------------
 
-# Get user calorie target
-def get_calorie_target():
-    while True:
-        try:
-            calorie_target = int(input("What is your daily calorie target? Please enter a target between 1400 - 3000 Calories: ")) # Prompt for user input
-            
-            if 1400 <=  calorie_target <= 3000:
-                return calorie_target  
-            else:
-                print("Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
+CALORIE_MIN = 1400
+CALORIE_MAX = 3000
+DAYS_MIN = 1
+DAYS_MAX = 14
 
-        # Raise exception if a string is entered rather than a number
-        except ValueError:
-            print("Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
+# Get user calorie target
+def get_calorie_target(user_input):
+    calorie_target = int(user_input)
+    if CALORIE_MIN <= calorie_target <= CALORIE_MAX:
+        return calorie_target  
+    else:
+        raise InvalidInputError("Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
 
 # Get number of days the suer wants meal plans for
-def get_num_days():
-    while True:
-        try:
-            num_days = int(input("How many days would you like to get a meal plan for?: "))
+def get_num_days(user_input):
+    num_days = int(user_input)
+    if DAYS_MIN <= num_days <= DAYS_MAX:
+        return num_days
+    else:
+        raise InvalidInputError("Number of days must be a number between 1 and 14. Please enter a valid number.")
 
-            if 0 < num_days <= 14:
-                return num_days
-            else:
-                print("Number of days must be a number between 1 and 14. Please enter a valid number.")
-
-        # Raise exception if a string is entered rather than a number
-        except ValueError:
-            print("Number of days must be a number between 1 and 14. Please enter a valid number.")
+def get_user_action():
+    return input("What would you like to do?\na = Add a new recipe\nv = View all recipes\nn = Start a new meal plan\nq = quit\n").lower()
 
 def main():
 
@@ -50,30 +44,24 @@ def main():
     if args.title or args.ingredients or args.calories:
         recipes.add_recipe_from_cli(args) # Call the add recipe via cli function and pass the args
 
-    # ----------------------------------------------------------------
-    # Main application start
-
     # Welcome
     print(f"\nHey, welcome to Meal Planner! Please choose from one of the actions below to get started\n")
 
     while True:
         try:
-            user_action = input("What would you like to do?\na = Add a new recipe\nv = View all recipes\nn = Start a new meal plan\nq = quit\n").lower() # Entry point
+            user_action = get_user_action()
 
-            # Add a new recipe ----------------------------------------------------------------
-            if user_action == 'a':
-                recipes.add_recipe()
-
+            if user_action == 'a': 
+                recipes.add_recipe() # Add a new recipe
             
-            # View all recipes ----------------------------------------------------------------
-            elif user_action == 'v':
-                recipes.display_all_recipes()
-
+            elif user_action == 'v': 
+                recipes.display_all_recipes() # View all recipes
             
-            # Create a new Meal plan for custom number of days --------------------------------
-            elif user_action == 'n':
-                num_days = get_num_days() # Get num days user wants meal plans for
-                calorie_target = get_calorie_target()  # Get calorie target for all days
+            elif user_action == 'n': # Start new meal plan
+                num_days_input = input("How many days would you like to get a meal plan for?: ")
+                num_days = get_num_days(num_days_input) # Get num days user wants meal plans for
+                calorie_target_input = input(f"What is your daily calorie target? Please enter a target between {CALORIE_MIN} - {CALORIE_MAX} Calories: ")
+                calorie_target = get_calorie_target(calorie_target_input)  # Get calorie target for all days
 
                 # Continuously loop until the user is happy with their meal plan
                 while True:
@@ -101,17 +89,15 @@ def main():
 
                     elif day.result == 'n':
                         if day.check_calorie_change(): # Check if user wants to change calorie target is True
-                            calorie_target = get_calorie_target()
-                            print("\nRegenerating meal plan...\n")
+                            calorie_target_input = input(f"Regenerating meal plan...\nWhat is your daily calorie target? Please enter a target between {CALORIE_MIN} - {CALORIE_MAX} Calories: ")
+                            calorie_target = get_calorie_target(calorie_target_input)
 
                     else:
                         raise InvalidInputError("Invalid input. Please enter 's' to save or 'n' to generate a new meal plan")
-            
-
-            # Quit the program -------------------------------------------------------------
+    
             elif user_action == 'q':
                 print("See you again soon!")
-                quit()
+                quit() # Quit the program
 
             else:
                 raise InvalidInputError("Invalid input. Please enter one of: 'a' 'v', 'n' or 'q'.")

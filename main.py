@@ -12,19 +12,26 @@ DAYS_MAX = 14
 
 # Get user calorie target
 def get_calorie_target(user_input):
-    calorie_target = int(user_input)
-    if CALORIE_MIN <= calorie_target <= CALORIE_MAX:
-        return calorie_target  
-    else:
+    try:
+        calorie_target = int(user_input)
+        if CALORIE_MIN <= calorie_target <= CALORIE_MAX:
+            return calorie_target  
+        else:
+            raise InvalidInputError("Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
+    except ValueError:
         raise InvalidInputError("Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
 
 # Get number of days the suer wants meal plans for
 def get_num_days(user_input):
-    num_days = int(user_input)
-    if DAYS_MIN <= num_days <= DAYS_MAX:
-        return num_days
-    else:
-        raise InvalidInputError("Number of days must be a number between 1 and 14. Please enter a valid number.")
+    try:
+        num_days = int(user_input)
+        if DAYS_MIN <= num_days <= DAYS_MAX:
+            return num_days
+        else:
+            raise InvalidInputError("Number of days must be a number between 1 and 14. Please enter a valid number.")
+    except ValueError:
+        raise InvalidInputError("Calorie target must be a number between 1400 and 3000. Please enter a valid number.")
+    
 
 def get_user_action():
     return input("What would you like to do?\na = Add a new recipe\nv = View all recipes\nn = Start a new meal plan\nq = quit\n").lower()
@@ -88,7 +95,8 @@ def main():
                             break
 
                     elif day.result == 'n':
-                        if day.check_calorie_change(): # Check if user wants to change calorie target is True
+                        calorie_change_input = input(f"Do you want to change your daily calorie target of {day.calorie_target} calories? Enter 'y' to change or 'n' to keep your current target: ")
+                        if day.check_calorie_change(calorie_change_input): # Check if user wants to change calorie target is True
                             calorie_target_input = input(f"Regenerating meal plan...\nWhat is your daily calorie target? Please enter a target between {CALORIE_MIN} - {CALORIE_MAX} Calories: ")
                             calorie_target = get_calorie_target(calorie_target_input)
 
@@ -102,10 +110,9 @@ def main():
             else:
                 raise InvalidInputError("Invalid input. Please enter one of: 'a' 'v', 'n' or 'q'.")
 
-        # Raise exception if anything outside of 'a', 'v', 'v', 'c' or 'q' is entered
+        # Raise exception if anything outside of 'a', 'v', 'n' or 'q' is entered
         except InvalidInputError as e:
             print(e)
-        
 
 if __name__ == "__main__":
     main()

@@ -195,10 +195,10 @@ class Day():
         return True
 
     # Check with user if they want to change their calorie target when re-rolling their meal plan
-    def check_calorie_change(self):
+    def check_calorie_change(self, user_input):
         while True:
             try:
-                change_calories = input(f"Do you want to change your daily calorie target of {self.calorie_target} calories? Enter 'y' to change or 'n' to keep your current target: ").lower()
+                change_calories = user_input.lower()
 
                 if change_calories == 'y':
                     return True

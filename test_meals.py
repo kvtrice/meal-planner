@@ -1,6 +1,8 @@
-from meals import Day
+import pytest
+from meals import Day, InvalidInputError
+from recipes import get_recipes
 
-# Test that the correct meal_calories are set for the calorie range set by the user:
+# Test set_meals
 def test_set_meal_calories():
     calorie_targets = [1500, 1850, 2150, 2400, 2800, 3000]
     expected_calories = [
@@ -20,3 +22,18 @@ def test_set_meal_calories():
         day.set_meal_calories()
         # Check expected calories match
         assert day.meal_calories == expected_calories[i]
+
+# Test shuffle_recipes
+def test_shuffle_recipes():
+    original_list = get_recipes()
+    shuffled_list = Day.shuffle_recipes
+    assert original_list != shuffled_list
+
+# Test check_calorie_change
+def test_check_calorie_change_y():
+    day = Day(calorie_target=1800)
+    assert day.check_calorie_change('y') is True
+
+def test_check_calorie_change_n():
+    day = Day(calorie_target=1800)
+    assert day.check_calorie_change('n') is False

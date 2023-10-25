@@ -57,7 +57,7 @@ For each range I allowed a variation of `+- 75` each side
 
 The program then iterates through the recipe csv, searching for meals that adequately fill the calorie target defined; shuffling the recipe list each time and removing it so that the options are randomised and the user doesn't get duplicate meals.
 
-Finally, at the end of each day the calories for each meal are summed together and the total is compared to the calorie target that the user set - if it's within `+- 75` of the target; then the meal is considered complete for that day. Otherwise, the loop repeats until a meal plan within an acceptable range is created.
+Finally, at the end of each day the calories for each meal are summed together and the total is compared to the calorie target that the user set - if it's within `+-100` of the target; then the meal is considered complete for that day. Otherwise, the loop repeats until a meal plan within an acceptable range is created.
 
 Additionally, once the user is shown their meal plan, they're given the option to manually regenerate it if they want to (e.g. if they don't like the meals). They can also optionally choose to change their calorie target upon regeneration or keep the orginal target they set.
 

@@ -196,20 +196,10 @@ class Day():
 
     # Check with user if they want to change their calorie target when re-rolling their meal plan
     def check_calorie_change(self, user_input):
-        while True:
-            try:
-                change_calories = user_input.lower()
-
-                if change_calories == 'y':
-                    return True
-                
-                elif change_calories == 'n':
-                    return False
-                
-                else:
-                    raise InvalidInputError("Invalid input. Please enter either 'y' or 'n'.")
-
-            # Raise Exception if invalid input
-            except InvalidInputError as e:
-                print(e)
+        change_calories = user_input.lower()
+        if change_calories == 'y':
+            return True
+        else:
+            return False
+            
     

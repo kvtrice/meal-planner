@@ -142,8 +142,7 @@ class Day():
         # Zip dict and list together to iterate through both
         for meal_name, semantic_name in zip(self.todays_meals, self.semantic_names):
             total_calories += int(meal_name['calories'])
-            print(f"{semantic_name}: {meal_name['title']} ({
-                  meal_name['calories']} calories) ")
+            print(f"{semantic_name}: {meal_name['title']} ({meal_name['calories']} calories) ")
             print(f"Ingredients: {meal_name['ingredients']}\n ")
 
         print(f"\nThe total calories for the day is: {total_calories}\n")

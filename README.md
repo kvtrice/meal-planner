@@ -299,3 +299,19 @@ Day end:
 ![multiple_days](docs/development_plan/feature_checklists/multiple_days.jpg)
 
 ## References
+
+Apple Support. (n.d.). _Intro to Shell Scripts in Terminal on Mac._ [online] Available at: https://support.apple.com/en-au/guide/terminal/apd53500956-7c5b-496b-a362-2845f2aab4bc/mac.
+
+Apple Support. (n.d.). _Make a File Executable in Terminal on Mac._ [online] Available at: https://support.apple.com/en-au/guide/terminal/apdd100908f-06b3-4e63-8a87-32e71241bab4/2.14/mac/14.0.
+
+GeeksforGeeks. (2019). _Writing CSV files in Python._ [online] Available at: https://www.geeksforgeeks.org/writing-csv-files-in-python/.
+
+March, J. (2020). _Enthought Python Minimum Hardware Requirements._ [online] Enthought Knowledge Base. Available at: https://support.enthought.com/hc/en-us/articles/204273874-Enthought-Python-Minimum-Hardware-Requirements.
+
+Official Python Documentation. (n.d.). _Argparse Tutorial — Python 3.9.5 Documentation._ [online] Available at: https://docs.python.org/3/howto/argparse.html.
+
+Official Python Documentation. (n.d.). _PEP 8 – Style Guide for Python Code | peps.python.org_. [online] Available at: https://peps.python.org/pep-0008/#documentation-strings.
+
+Python Software Foundation (2020). _Csv — CSV File Reading and Writing — Python 3.8.1 Documentation._ [online] Python.org. Available at: https://docs.python.org/3/library/csv.html.
+
+realpython.com. (n.d.). _Build Command-Line Interfaces With Python’s argparse – Real Python._ [online] Available at: https://realpython.com/command-line-interfaces-python-argparse/.

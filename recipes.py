@@ -24,29 +24,25 @@ def add_recipe_from_cli(args):
 
 # Function to add recipe within the app
 def add_recipe():
-    try:
-        # Prompt user for recipe information
-        new_title = input("What is the name of the recipe?: ")
-        new_ingredients = input(
-            "What are the ingredients of the recipe? (For 1 serving): ")
-        new_calories = int(
+    new_title = input("What is the name of the recipe?: ")
+    new_ingredients = input(
+        "What are the ingredients of the recipe? (For 1 serving): ")
+    while True:
+        try: 
+            new_calories = int(
             input("How many calories in this recipe? (For 1 serving): "))
+            # Raise Exception if calorie number is less than 0
+            if new_calories < 0:
+                raise ValueError(
+                    "Calories cannot be less than 0. Please enter a valid number.")
+            break
+        except ValueError:
+            print("Invalid Input. Please enter an integer above 0.")
 
-        # Raise Exception of calorie number is less than 0
-        if new_calories < 0:
-            raise ValueError(
-                "Calories can't be less than 0. Please enter a valid number.")
-
-        # Turn the new recipe details into a dictionary
-        new_recipe = {'title': new_title,'ingredients': new_ingredients, 'calories': new_calories}
-
-        # Add recipe to CSV file
-        add_recipe_to_CSV(new_recipe)
-
-    # Raise exception if a string is entered for the recipe calories
-    except ValueError:
-        print("Calories cannot be a string! Please enter a valid number.")
-
+    # Turn the new recipe details into a dictionary
+    new_recipe = {'title': new_title,'ingredients': new_ingredients, 'calories': new_calories}
+    # Add recipe to CSV file
+    add_recipe_to_CSV(new_recipe)
 
 # Function to display all recipes to the user in a readable format (on-screen)
 def display_all_recipes():

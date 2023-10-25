@@ -108,7 +108,7 @@ To add a new recipe to the application from the commandline, enter into the fold
 cd projects/python/meal-planner
 ```
 
-Run the following script, replacing the `title`, `ingredients` and `calories` with your own recipes details.
+Run the following command, replacing the `title`, `ingredients` and `calories` with your own recipes details.
 
 All recipes added assume a serving size of 1. Both the title and the ingredients are *strings*, calories is an *integer*
 
@@ -118,14 +118,20 @@ python3 main.py --title "Spaghetti Bolognese" --ingredients "2 Tomatoes, 500g Be
 
 #### 2. Add a new recipe within the application
 
-To add a new recipe from the application, run the application:
+To add a new recipe from the application, if not already done so, navigate to the project source directory, e.g:
 
 ```bash
 cd projects/python/meal-planner
-python3 main.py
 ```
 
-* From the user menu, simply enter the letter `a` to add a new recipe, and follow the prompts
+Run the following script to start the application 
+(Note: In this step it is assumed all dependencies have been installed, if not please refer to [cloning the application](#1-clone-the-application)):
+
+```bash
+./run.sh
+```
+
+From the user menu, simply enter the letter `a` to add a new recipe, and follow the prompts
 
 
 #### 3. View all recipes (printed to screen)
@@ -146,6 +152,27 @@ python3 main.py
 ```bash
 cd projects/python/meal-planner/your-file.txt
 ```
+
+Or alternatively, in terminal navigate to the source directory of the project, for example: 
+
+```bash
+cd projects/python/meal-planner
+```
+
+Run following script which will prompt you for the name of your saved file:
+
+```bash
+./open.sh
+```
+Enter the exact name of your file (must be an exact match), including the .txt extension:
+
+![open_file_bash](/docs/help_docs/bash_open_script.jpg)
+
+Your saved meal plan will automatically open in the default program (e.g. TextEdit on Mac):
+
+![example_meal_plan](/docs/help_docs/saved_meal_plan_example.jpg)
+
+
 
 ### System and Hardware Requirements
 The following minimum hardware requirements are required to run the application (equivalent to the minimum hardware requirements for running Python)

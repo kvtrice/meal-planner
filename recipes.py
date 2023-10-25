@@ -24,9 +24,24 @@ def add_recipe_from_cli(args):
 
 # Function to add recipe within the app
 def add_recipe():
-    new_title = input("What is the name of the recipe?: ")
-    new_ingredients = input(
-        "What are the ingredients of the recipe? (For 1 serving): ")
+    while True:
+        try:
+            new_title = input("What is the name of the recipe?: ")
+            if not new_title:
+                raise ValueError("The name of the recipe cannot be blank, please enter a valid name")
+            break
+        except ValueError as e:
+            print(e)
+
+    while True:
+        try:
+            new_ingredients = input("What are the ingredients of the recipe? (For 1 serving): ")
+            if not new_ingredients:
+                raise ValueError("The ingredients in the recipe cannot be blank, please enter at least one valid ingredient")
+            break
+        except ValueError as e:
+            print(e)
+
     while True:
         try: 
             new_calories = int(

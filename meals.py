@@ -179,7 +179,15 @@ class Day():
       
     # Check with user if they're happy with the meal plan
     def save_meal_plan(self, all_meals):
-        filename = input("Great, let's save these for you. What should the save file be called?: ") # Get filename from user
+        while True:
+            try:
+                filename = input("Great, let's save these for you. What should the save file be called?: ") # Get filename from user
+                if not filename:
+                    raise ValueError("Filename cannot be blank, please enter a valid filename!")
+                break
+            except ValueError as e:
+                print(e)
+
         filename = filename + '.txt'
         self.output_meals(all_meals, filename) # Save to file via output_meal function
         print("\nYour meals have been saved!\n")

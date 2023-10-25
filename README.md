@@ -2,7 +2,7 @@
 
 ## Links
 * [Github Repository](https://github.com/kvtrice/meal-planner)
-* Slide Deck
+* [Slide Deck](https://www.canva.com/design/DAFyJ9mJGM8/k-JMQ6WurNEl9qWDLk6k7g/view?utm_content=DAFyJ9mJGM8&utm_campaign=designshare&utm_medium=link&utm_source=editor)
 * [Development Plan (Linear)](https://linear.app/kats-workspace/join/88596d7e69b639b4a651783417b35e23?s=4)
 * [Code Style Guide (Pep8)](https://peps.python.org/pep-0008/#documentation-strings)
 
@@ -260,6 +260,10 @@ Day end:
 **Day 5**
 
 ![day_5](docs/development_plan/day_5/day_5.jpg)
+
+**Final Day**
+
+![final_day](docs/development_plan/day_6/final_day_board.jpg)
 
 **Feature Checklists**
 

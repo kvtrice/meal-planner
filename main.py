@@ -90,55 +90,60 @@ def main():
                         day.set_meals() # Set the meals for the day
                         all_meals.append(day) # Append set meals to all_meals list
                     
-                    # Print the meal plan for all days
-                    print("\nHere are your daily meal plans:\n")
-                    day_number = 1
-                    for day in all_meals:
-                        print(f"Day {day_number} Meal Plan:\n")
-                        day.print_daily_meal() # Call print function for each daily meal
-                        day_number += 1 # Increment number
+                    if day.todays_meals == []:
+                        print(f"\nSorry, we weren't able to find any suitable meals for you this time. This can happen if there aren't enough meals in your calorie range.\nPlease try again with a different calorie range or try adding some more recipes!\n")
+                        break
 
-                    while True:
-                        try:
-                            # Check if user is happy with their meals
-                            day.result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
+                    else:
+                        # Print the meal plan for all days
+                        print("\nHere are your daily meal plans:\n")
+                        day_number = 1
+                        for day in all_meals:
+                            print(f"Day {day_number} Meal Plan:\n")
+                            day.print_daily_meal() # Call print function for each daily meal
+                            day_number += 1 # Increment number
 
-                            if day.result == 's' or day.result == 'n':
-                                break
-
-                            else:
-                                raise InvalidInputError("Invalid input. Please enter 's' to save or 'n' to generate a new meal plan")
-                            
-                        except InvalidInputError as e:
-                            print(e)
-
-                    if day.result == 's':
-                        if day.save_meal_plan(all_meals): # Save the meals to a file
-                            break
-
-                    elif day.result == 'n':
                         while True:
                             try:
-                                calorie_change_input = input(f"Do you want to change your daily calorie target of {day.calorie_target} calories? Enter 'y' to change or 'n' to keep your current target: ")
+                                # Check if user is happy with their meals
+                                day.result = input("What do you think of these meals?\nEnter 's' to save them or 'n' to generate a new meal plan: ").lower()
 
-                                if calorie_change_input == "y" or calorie_change_input == "n":
+                                if day.result == 's' or day.result == 'n':
                                     break
 
-                                else: 
-                                    raise InvalidInputError("Invalid input. Please enter either 'y' or 'n'.")
-                            except InvalidInputError as e: 
+                                else:
+                                    raise InvalidInputError("Invalid input. Please enter 's' to save or 'n' to generate a new meal plan")
+                                
+                            except InvalidInputError as e:
                                 print(e)
 
-                        if day.check_calorie_change(calorie_change_input): # Check if user wants to change calorie target is True
+                        if day.result == 's':
+                            if day.save_meal_plan(all_meals): # Save the meals to a file
+                                break
+
+                        elif day.result == 'n':
                             while True:
                                 try:
-                                    calorie_target_input = input(f"Regenerating meal plan...\nWhat is your daily calorie target? Please enter a target between {CALORIE_MIN} - {CALORIE_MAX} Calories: ")
-                                    
-                                    calorie_target = get_calorie_target(calorie_target_input)
-                                    break
+                                    calorie_change_input = input(f"Do you want to change your daily calorie target of {day.calorie_target} calories? Enter 'y' to change or 'n' to keep your current target: ")
 
-                                except InvalidInputError as e:
+                                    if calorie_change_input == "y" or calorie_change_input == "n":
+                                        break
+
+                                    else: 
+                                        raise InvalidInputError("Invalid input. Please enter either 'y' or 'n'.")
+                                except InvalidInputError as e: 
                                     print(e)
+
+                            if day.check_calorie_change(calorie_change_input): # Check if user wants to change calorie target is True
+                                while True:
+                                    try:
+                                        calorie_target_input = input(f"Regenerating meal plan...\nWhat is your daily calorie target? Please enter a target between {CALORIE_MIN} - {CALORIE_MAX} Calories: ")
+                                        
+                                        calorie_target = get_calorie_target(calorie_target_input)
+                                        break
+
+                                    except InvalidInputError as e:
+                                        print(e)
     
             elif user_action == 'q':
                 print("See you again soon!")

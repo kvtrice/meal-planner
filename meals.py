@@ -27,10 +27,10 @@ class Day():
         # Based on each calorie_range, set the dictionary to equal the below specified calories
         if 1400 <= self.calorie_target <= 1700:
             self.meal_calories = {
-                "M1": 350,
+                "M1": 300,
                 "M2": 350,
                 "M3": 500,
-                "M4": 150,
+                "M4": 200,
                 "M5": 200,
             }
         elif 1701 <= self.calorie_target <= 2000:
@@ -78,62 +78,54 @@ class Day():
         meal_completed = False
         recipes = self.shuffle_recipes()
 
-        try:
-            # While todays meals is incomplete
-            while meal_completed == False and attempts < 1000:
-                try:
-                    for calories in self.meal_calories.values():
-                        # For the value in that dict (cals), +- 75 either side
-                        min_cal = calories - 75
-                        max_cal = calories + 75
-                        meal_found = False
+        # While todays meals is incomplete
+        while meal_completed == False and attempts < 1000:
+                
+            for calories in self.meal_calories.values():
+                # For the value in that dict (cals), +- 75 either side
+                min_cal = calories - 75
+                max_cal = calories + 75
+                meal_found = False
 
-                        # Iterate over the recipes to find a meal, and check it's in the calorie range.
-                        # While it's not, keep searching, if it is, add it to today's meals and set meal_found to True
-                        while meal_found == False:
-                            for recipe in recipes:
-                                # Find the 'calories' value
-                                value = int(recipe.get('calories'))
-                                if min_cal < value < max_cal:  # Check value within acceptable range
-                                    # Append to todays meals
-                                    self.todays_meals.append(recipe)
-                                    # Remove from the recipe list (so as to not duplicate on the same day)
-                                    recipes.remove(recipe)
-                                    meal_found = True
-                                    break  # Exit the loop
+                # Iterate over the recipes to find a meal, and check it's in the calorie range.
+                # While it's not, keep searching, if it is, add it to today's meals and set meal_found to True
+                for recipe in recipes:
+                    # Find the 'calories' value
+                    value = int(recipe.get('calories'))
+                    if min_cal < value < max_cal:  # Check value within acceptable range
+                        # Append to todays meals
+                        self.todays_meals.append(recipe)
+                        # Remove from the recipe list (so as to not duplicate on the same day)
+                        recipes.remove(recipe)
+                        meal_found = True
+                        break  # Exit the loop
 
-                            if meal_found == False:
-                                meal_found = True
-                                raise FindRecipeError("\nSorry, we were unable to find a suitable meal for you with the current calorie target and available recipes. Please consider one of the following options:\n1. Adjust your daily calorie target to a different target.\n2. Add more recipes to your collection.")
+                if meal_found == False:
+                   no_meal_err = {}
+                   no_meal_err = {"title":"Oops! No meal found. This can happen if there aren't enough recipes calorie range for your target. Try adding some more recipes!", "ingredients": "None", "calories": 0}
+                   self.todays_meals.append(no_meal_err)
+                        
 
-                    # Check that meal total is acceptable close to the users target calories
-                    total_calories = 0
-                    # Sum each meals calories together to find the total
-                    for meal in self.todays_meals:
-                        total_calories += int(meal['calories'])
+            # Check that meal total is acceptable close to the users target calories
+            total_calories = 0
+            # Sum each meals calories together to find the total
+            for meal in self.todays_meals:
+                total_calories += int(meal['calories'])
 
-                    # Set the range to be acceptable based on the daily calories goal
-                    daily_min_cal = self.calorie_target - 75
-                    daily_max_cal = self.calorie_target + 75
+            # Set the range to be acceptable based on the daily calories goal
+            daily_min_cal = self.calorie_target - 100
+            daily_max_cal = self.calorie_target + 100
 
-                    # If within target, mark meal as completed
-                    if daily_min_cal < total_calories < daily_max_cal:
-                        meal_completed = True
+            # If within target, mark meal as completed
+            if daily_min_cal < total_calories < daily_max_cal:
+                meal_completed = True
 
-                    # Otherwise, start again
-                    else:
-                        self.todays_meals = []
-                        self.shuffle_recipes()
-                        attempts += 1
+            # Otherwise, start again
+            else:
+                self.todays_meals = []
+                self.shuffle_recipes()
+                attempts += 1
 
-                except FindRecipeError as e:
-                    print(e)
-
-            if attempts >= 1000:
-                raise FindRecipeError("\nSorry, we were unable to find a suitable meal plan for you with the current calorie target and available recipes. Please consider one of the following options:\n1. Adjust your daily calorie target to a different target.\n2. Add more recipes to your collection.\n3. Try generating a meal plan for a different number of days.")
-            
-        except FindRecipeError as e:
-            print(e)
 
     # Function to print the days meal plan once it's been set
     def print_daily_meal(self):

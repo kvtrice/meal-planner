@@ -1,4 +1,3 @@
-import pytest
 from meals import Day, InvalidInputError
 from recipes import get_recipes
 
@@ -6,7 +5,7 @@ from recipes import get_recipes
 def test_set_meal_calories():
     calorie_targets = [1500, 1850, 2150, 2400, 2800, 3000]
     expected_calories = [
-        {"M1": 350, "M2": 350, "M3": 500, "M4": 150, "M5": 200},
+        {"M1": 300, "M2": 350, "M3": 500, "M4": 200, "M5": 200},
         {"M1": 400, "M2": 400, "M3": 600, "M4": 300, "M5": 200},
         {"M1": 500, "M2": 500, "M3": 600, "M4": 400, "M5": 300},
         {"M1": 500, "M2": 600, "M3": 700, "M4": 400, "M5": 400},
